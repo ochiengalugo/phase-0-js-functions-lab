@@ -3,7 +3,7 @@
 function calculateTax(amount) {
     return amount * 0.10;
 }
-const taxResult = calculateTax(10000);
+const taxResult = calculateTax(0);
 console.log(taxResult);
 
 //convert to uppercase
