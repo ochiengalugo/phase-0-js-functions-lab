@@ -1,43 +1,65 @@
 // Function 1: calculateTax
 function calculateTax(amount) {
-    // Handling 0 and negative amounts
+    // Return 0 for zero or negative amounts
     if (amount <= 0) return 0;
     return amount * 0.10;
 }
 
 // Function 2: convertToUpperCase
 function convertToUpperCase(text) {
-    // .toUpperCase() natively handles empty strings, mixed cases, and special characters
     return text.toUpperCase();
 }
 
 // Function 3: findMaximum
 function findMaximum(num1, num2) {
-    // Standard comparison handles positive, negative, and equal numbers correctly
-    if (num1 > num2) {
-        return num1;
-    } else {
-        return num2;
-    }
+    if (num1 === num2) return num1;
+    return num1 > num2 ? num1 : num2;
 }
 
 // Function 4: isPalindrome
 function isPalindrome(word) {
-    // Handle empty string or single character (both are technically palindromes)
-    if (word.length <= 1) return true;
-    
-    let reversedWord = word.split("").reverse().join("");
-    return word === reversedWord;
+    // Normalize: lowercase and remove non-alphanumeric characters
+    let cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return cleanWord === cleanWord.split("").reverse().join("");
 }
 
 // Function 5: calculateDiscountedPrice
 function calculateDiscountedPrice(originalPrice, discountPercentage) {
-    // If discount is 0, return original; if 100 or more, price is 0 (or negative)
+    // Prevent negative prices
+    if (discountPercentage >= 100) return 0;
+    if (discountPercentage <= 0) return originalPrice;
+
     let discountAmount = originalPrice * (discountPercentage / 100);
     return originalPrice - discountAmount;
 }
-console.log(calculateTax(-50));              // Expected: 0
-console.log(convertToUpperCase(""));          // Expected: ""
-console.log(findMaximum(-10, -5));            // Expected: -5
-console.log(isPalindrome(""));                // Expected: true
-console.log(calculateDiscountedPrice(100, 120)); // Expected: -20
+
+
+// ================= TEST CASES =================
+
+// calculateTax
+console.log(calculateTax(-50));      // 0
+console.log(calculateTax(0));        // 0
+console.log(calculateTax(1000));     // 100
+
+// convertToUpperCase
+console.log(convertToUpperCase("hello"));        // HELLO
+console.log(convertToUpperCase("WORLD"));        // WORLD
+console.log(convertToUpperCase(""));             // ""
+console.log(convertToUpperCase("HeLlo123!"));    // HELLO123!
+
+// findMaximum
+console.log(findMaximum(10, 5));     // 10
+console.log(findMaximum(-10, -5));   // -5
+console.log(findMaximum(5, 5));      // 5
+
+// isPalindrome
+console.log(isPalindrome("madam"));      // true
+console.log(isPalindrome("hello"));      // false
+console.log(isPalindrome("A man a plan a canal Panama")); // true
+console.log(isPalindrome(""));           // true
+
+// calculateDiscountedPrice
+console.log(calculateDiscountedPrice(100, 0));    // 100
+console.log(calculateDiscountedPrice(100, 50));   // 50
+console.log(calculateDiscountedPrice(100, 100));  // 0
+console.log(calculateDiscountedPrice(100, 120));  // 0
